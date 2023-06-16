@@ -102,10 +102,6 @@
     />
     <Result :visible.sync="showResult"></Result>
 
-    <span class="copy-right">
-      Copyright©zhangyongfeng5350@gmail.com
-    </span>
-
     <audio
       id="audiobg"
       preload="auto"
@@ -376,10 +372,11 @@ export default {
     toggle(form) {
       const { speed, config } = this;
 
-      console.log(this.running, speed, config, 'toggle');
+      // console.log(this.running, speed, config, 'toggle');
 
       if (this.running) {
-        // 运行摇奖动画
+        console.log('running is true');
+        // 停止摇奖动画
         this.audioSrc = bgaudio;
         this.loadAudio();
 
@@ -390,7 +387,7 @@ export default {
           this.reloadTagCanvas();
         });
       } else {
-        // 得出随机结果
+        // 运行摇奖动画 得出随机结果
         this.showRes = false;
         if (!form) {
           return;
@@ -416,20 +413,25 @@ export default {
         );
         this.resArr = resArr;
 
-        console.log(resArr, '结果是什么');
         this.category = category;
         if (!this.result[category]) {
           this.$set(this.result, category, []);
         }
         const oldRes = this.result[category] || [];
+        console.log(resArr, '结果是什么', category, this.result[category]);
         const data = Object.assign({}, this.result, {
           [category]: oldRes.concat(resArr)
         });
+
+        console.log(data, 'data...');
         this.result = data;
         window.TagCanvas.SetSpeed('rootcanvas', [5, 1]);
         this.running = !this.running;
       }
-    }
+    },
+
+    // 添加中奖记录
+    addRecord() {}
   }
 };
 </script>
