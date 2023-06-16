@@ -132,7 +132,7 @@ import {
 import { luckydrawHandler } from '@/helper/algorithm';
 import Result from '@/components/Result';
 import { database, DB_STORE_NAME } from '@/helper/db';
-import { getPartInCompListApi } from '@/api';
+import { getPartInCompListApi, addRecordApi } from '@/api';
 import { listall } from '@/api/testData';
 
 export default {
@@ -313,18 +313,19 @@ export default {
     pauseHandler() {
       this.audioPlaying = false;
     },
+    // eslint-disable-next-line no-unused-vars
     playAudio(type) {
-      if (type) {
-        this.$el.querySelector('#audiobg').play();
-      } else {
-        this.$el.querySelector('#audiobg').pause();
-      }
+      // if (type) {
+      //   this.$el.querySelector('#audiobg').play();
+      // } else {
+      //   this.$el.querySelector('#audiobg').pause();
+      // }
     },
     loadAudio() {
-      this.$el.querySelector('#audiobg').load();
-      this.$nextTick(() => {
-        this.$el.querySelector('#audiobg').play();
-      });
+      // this.$el.querySelector('#audiobg').load();
+      // this.$nextTick(() => {
+      //   this.$el.querySelector('#audiobg').play();
+      // });
     },
 
     // 获取照片信息
@@ -402,7 +403,7 @@ export default {
         this.loadAudio();
 
         const { number } = config;
-        const { category, mode, qty, remain, allin } = form;
+        const { category, mode, qty, remain, allin, countMap } = form;
         let num = 1;
         if (mode === 1 || mode === 5) {
           num = mode;
@@ -424,19 +425,50 @@ export default {
         }
         const oldRes = this.result[category] || [];
         console.log(resArr, '结果是什么', category, this.result[category]);
+        // console.log(countMap.get(category), '取第几次抽奖， countMap');
         const data = Object.assign({}, this.result, {
           [category]: oldRes.concat(resArr)
         });
 
-        console.log(data, 'data...');
+        // 上报结果
+        this.addRecord(resArr, category, countMap.get(category));
+
+        // console.log(data, 'data...');
         this.result = data;
         window.TagCanvas.SetSpeed('rootcanvas', [5, 1]);
         this.running = !this.running;
       }
     },
 
-    // 添加中奖记录
-    addRecord() {}
+    /**
+     * 添加中奖记录
+     * @param {*} indexArr 序列数组
+     * @param {*} category 当前奖励类型
+     * @param {*} countNum 该奖项抽了多少次
+     */
+    async addRecord(indexArr, category, countNum) {
+      const rr = [];
+      indexArr.forEach(indexItem => {
+        const currentItem = this.list.find(item => item.key === indexItem);
+        rr.push(currentItem);
+      });
+      const sessionId = this.$store.state.sessionId;
+      const params = rr.map(item => {
+        return {
+          sessionId,
+          compId: item.id,
+          compNameCn: item.compNameCn,
+          compNameEn: item.compNameEn,
+          compLogo: item.photo,
+          awardsName: conversionCategoryName(category),
+          awardsCode: category,
+          awardsTimes: countNum
+        };
+      });
+
+      // console.log(params, '上报的参数啊啊啊啊啊啊啊啊啊');
+      await addRecordApi(params);
+    }
   }
 };
 </script>

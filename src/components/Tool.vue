@@ -134,8 +134,8 @@
           <el-radio-group v-model="removeInfo.type">
             <el-radio border :label="0">重置全部数据</el-radio>
             <el-radio border :label="1">重置抽奖配置</el-radio>
-            <el-radio border :label="2">重置名单</el-radio>
-            <el-radio border :label="3">重置照片</el-radio>
+            <!-- <el-radio border :label="2">重置名单</el-radio>
+            <el-radio border :label="3">重置照片</el-radio> -->
             <el-radio border :label="4">重置抽奖结果</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -365,12 +365,14 @@ export default {
       if (this.form.mode === 0 && this.poolRemaining < this.remain) {
         this.$emit('toggle', {
           ...this.form,
-          remain: this.poolRemaining // 使用奖池剩余人数作为剩余人数
+          remain: this.poolRemaining, // 使用奖池剩余人数作为剩余人数
+          countMap: this.countMap
         });
       } else {
         this.$emit('toggle', {
           ...this.form,
-          remain: this.remain
+          remain: this.remain,
+          countMap: this.countMap
         });
       }
     },
@@ -457,7 +459,7 @@ export default {
 }
 .c-removeoptions {
   .el-dialog {
-    height: 290px;
+    // height: 290px;
   }
   .el-radio.is-bordered + .el-radio.is-bordered {
     margin-left: 0px;

@@ -34,3 +34,11 @@ export const getPartInCompListApi = (
 ) => {
   return http.post('/evt/fr/winRecord/partInCompList', params);
 };
+
+export const addRecordApi = params => {
+  return http.post('/evt/fr/winRecord/add', params);
+};
+
+export const queryRecordApi = params => {
+  return http.post('/evt/fr/winRecord/list', params);
+};
