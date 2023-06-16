@@ -11,15 +11,21 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // 届次ID
+    sessionId: '81',
     config: {
       name: '年会抽奖',
       number: 0,
       firstPrize: 1,
-      secondPrize: 3
+      secondPrize: 3,
+      thirdPrize: 5,
+      fourthPrize: 10
     },
     result: {
       firstPrize: [],
-      secondPrize: []
+      secondPrize: [],
+      thirdPrize: [],
+      fourthPrize: []
     },
     newLottery: [],
     list: [],
@@ -31,7 +37,9 @@ export default new Vuex.Store({
         name: '年会抽奖',
         number: 0,
         firstPrize: 1,
-        secondPrize: 3
+        secondPrize: 3,
+        thirdPrize: 5,
+        fourthPrize: 10
       };
       state.newLottery = [];
     },
@@ -44,7 +52,9 @@ export default new Vuex.Store({
     setClearResult(state) {
       state.result = {
         firstPrize: [],
-        secondPrize: []
+        secondPrize: [],
+        thirdPrize: [],
+        fourthPrize: []
       };
     },
     setClearStore(state) {
@@ -52,11 +62,15 @@ export default new Vuex.Store({
         name: '年会抽奖',
         number: 0,
         firstPrize: 1,
-        secondPrize: 3
+        secondPrize: 3,
+        thirdPrize: 5,
+        fourthPrize: 10
       };
       state.result = {
         firstPrize: [],
-        secondPrize: []
+        secondPrize: [],
+        thirdPrize: [],
+        fourthPrize: []
       };
       state.newLottery = [];
       state.list = [];
@@ -80,6 +94,8 @@ export default new Vuex.Store({
     },
     setList(state, list) {
       const arr = state.list;
+
+      console.log(list, 'store set list');
       list.forEach(item => {
         const arrIndex = arr.findIndex(data => data.key === item.key);
         if (arrIndex > -1) {

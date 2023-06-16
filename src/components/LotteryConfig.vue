@@ -20,9 +20,9 @@
     </div>
     <div class="container">
       <el-form ref="form" :model="form" size="mini">
-        <el-form-item label="抽奖标题">
+        <!-- <el-form-item label="抽奖标题">
           <el-input v-model="form.name"></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="抽奖总人数">
           <el-input
             type="number"
@@ -43,6 +43,22 @@
           <el-input
             type="number"
             v-model="form.secondPrize"
+            :min="0"
+            :step="1"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="三等奖">
+          <el-input
+            type="number"
+            v-model="form.thirdPrize"
+            :min="0"
+            :step="1"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="四等奖">
+          <el-input
+            type="number"
+            v-model="form.fourthPrize"
             :min="0"
             :step="1"
           ></el-input>

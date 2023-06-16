@@ -2,17 +2,20 @@
   <el-dialog
     :visible="visible"
     @close="$emit('update:visible', false)"
-    width="600px"
+    width="100%"
     class="c-Result"
     :append-to-body="true"
   >
     <div class="dialog-title" slot="title">
-      <span :style="{ fontSize: '18px' }">
+      <span :style="{ fontSize: '32px' }">
         抽奖结果
       </span>
-      <span :style="{ fontSize: '14px', color: '#999', marginLeft: '10px' }">
-        (点击号码可以删除)
+      <span>
+        <!-- {{ resultList }} -->
       </span>
+      <!-- <span :style="{ fontSize: '14px', color: '#999', marginLeft: '10px' }">
+        (点击号码可以删除)
+      </span> -->
     </div>
     <div
       v-for="(item, index) in resultList"
@@ -20,24 +23,36 @@
       class="listrow"
       @click="
         event => {
-          deleteRes(event, item);
+          // deleteRes(event, item);
         }
       "
     >
-      <span class="name"> {{ item.name }} </span>
-      <span class="value">
+      <span class="prize-name"> {{ item.name }} </span>
+      <div class="prize-value">
         <span v-if="item.value && item.value.length === 0">
           暂未抽奖
         </span>
-        <span
-          class="card"
+
+        <el-tooltip
           v-for="(data, j) in item.value"
           :key="j"
           :data-res="data"
+          class="card"
+          effect="dark"
+          :content="findItem(data).name"
+          placement="top-start"
         >
-          {{ findItem(data).name }}
-        </span>
-      </span>
+          <div class="info-card">
+            <img
+              v-if="findItem(data).photo"
+              class="info-card__logo"
+              :src="findItem(data).photo"
+            />
+            <div class="info-card__name">{{ findItem(data).compNameEn }}</div>
+            <div class="info-card__name">{{ findItem(data).compNameCn }}</div>
+          </div>
+        </el-tooltip>
+      </div>
     </div>
   </el-dialog>
 </template>
@@ -118,50 +133,99 @@ export default {
 </script>
 <style lang="scss">
 .c-Result {
+  .el-dialog {
+    background: transparent;
+  }
+
+  .dialog-title {
+    font-family: ShuHeiTi, 'Courier New', Courier, monospace;
+    background: linear-gradient(to bottom, #ffffff, #dbe4fe, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
   .el-dialog__body {
-    max-height: 500px;
+    // max-height: 500px;
     overflow-y: auto;
   }
   .listrow {
     display: flex;
-    line-height: 30px;
-    .name {
-      width: 80px;
+    line-height: 32px;
+    margin: 20px 0;
+
+    .prize-name {
+      width: 120px;
       font-weight: bold;
+      font-family: ShuHeiTi, 'Courier New', Courier, monospace;
+      font-size: 20px;
+      line-height: 32px;
+      background: linear-gradient(to bottom, #ffffff, #dbe4fe, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
     }
-    .value {
+    .prize-value {
       flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
     }
     .card {
-      display: inline-block;
-      width: 80px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      padding: 0 5px;
+      // display: inline-block;
+      // width: 160px;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      // white-space: nowrap;
+      width: 285px;
+      height: 160px;
+      padding: 15px;
       line-height: 30px;
       text-align: center;
       font-size: 18px;
       font-weight: bold;
       border-radius: 4px;
-      border: 1px solid #ccc;
-      background-color: #f2f2f2;
+      border: 2px solid #5c7bff;
+      // background-color: #f2f2f2;
+      background: linear-gradient(to bottom, #222324, #3a4986);
       margin-left: 5px;
       margin-bottom: 5px;
       position: relative;
       cursor: pointer;
-      &:hover {
-        &::before {
-          content: '删除';
-          width: 100%;
-          height: 100%;
-          background-color: #ccc;
-          position: absolute;
-          left: 0;
-          top: 0;
-          color: red;
+      color: #fff;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .info-card {
+        &__logo {
+          width: 160px;
+          height: 90px;
+        }
+        &__name {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 2;
         }
       }
+      // &:hover {
+      //   &::before {
+      //     content: '删除';
+      //     width: 100%;
+      //     height: 100%;
+      //     background-color: #ccc;
+      //     position: absolute;
+      //     left: 0;
+      //     top: 0;
+      //     color: red;
+      //   }
+      // }
     }
   }
 }

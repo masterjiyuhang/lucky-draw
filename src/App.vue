@@ -1,7 +1,7 @@
 <template>
   <div id="root">
     <header>
-      <Publicity v-show="!running" />
+      <!-- <Publicity v-show="!running" /> -->
       <el-button class="res" type="text" @click="showResult = true">
         抽奖结果
       </el-button>
@@ -16,12 +16,10 @@
           <a
             href="javascript:void(0);"
             :style="{
-              color: '#fff'
+              color: '#f80'
             }"
           >
-            {{ item.name ? item.name : item.key }}
-            {{ item.photo }}
-            <img v-if="item.photo" :src="item.photo" :width="50" :height="50" />
+            🧜 👺 🐢{{ item.name ? item.name : item.key }}🍉 😊 🌊
           </a>
         </li>
       </ul>
@@ -48,15 +46,15 @@
             <!-- 抽奖结果展示 -->
             <div class="cont" v-if="!photos.find(d => d.id === item)">
               <template v-if="!!list.find(d => d.key === item)">
-                <div class="company-name">
-                  {{ list.find(d => d.key === item).name }}
-                </div>
                 <img
                   class="company-logo"
                   v-if="list.find(d => d.key === item).photo"
                   :src="list.find(d => d.key === item).photo"
                   alt=""
                 />
+                <div class="company-name">
+                  {{ list.find(d => d.key === item).name }}
+                </div>
               </template>
               <span v-else> {{ item }} 没找着 </span>
             </div>
@@ -72,7 +70,7 @@
       </div>
     </transition>
 
-    <el-button
+    <!-- <el-button
       class="audio"
       type="text"
       @click="
@@ -85,7 +83,7 @@
         class="iconfont"
         :class="[audioPlaying ? 'iconstop' : 'iconplay1']"
       ></i>
-    </el-button>
+    </el-button> -->
 
     <LotteryConfig
       :visible.sync="showConfig"
@@ -102,7 +100,7 @@
     />
     <Result :visible.sync="showResult"></Result>
 
-    <audio
+    <!-- <audio
       id="audiobg"
       preload="auto"
       controls
@@ -113,12 +111,12 @@
     >
       <source :src="audioSrc" />
       你的浏览器不支持audio标签
-    </audio>
+    </audio> -->
   </div>
 </template>
 <script>
 import LotteryConfig from '@/components/LotteryConfig';
-import Publicity from '@/components/Publicity';
+// import Publicity from '@/components/Publicity';
 import Tool from '@/components/Tool';
 import bgaudio from '@/assets/bg.mp3';
 import beginaudio from '@/assets/begin.mp3';
@@ -135,11 +133,17 @@ import { luckydrawHandler } from '@/helper/algorithm';
 import Result from '@/components/Result';
 import { database, DB_STORE_NAME } from '@/helper/db';
 import { getPartInCompListApi } from '@/api';
+import { listall } from '@/api/testData';
 
 export default {
   name: 'App',
 
-  components: { LotteryConfig, Publicity, Tool, Result },
+  components: {
+    LotteryConfig,
+    // Publicity,
+    Tool,
+    Result
+  },
 
   computed: {
     resCardStyle() {
@@ -190,19 +194,16 @@ export default {
       const randomShowDatas = randomShowNums.map(item => {
         const listData = this.list.find(d => d.key === item);
         // const photo = this.photos.find(d => d.id === item);
-
-        // const photoUrl = listData.photo
-        //   ? listData.photo
-        //   : photo
-        //   ? photo.value
-        //   : '';
         return {
           key: item * (number > 1500 ? 3 : 1),
           name: listData ? listData.name : '',
+          compNameCn: listData ? listData.compNameCn : '',
+          compNameEn: listData ? listData.compNameEn : '',
           // photo: photoUrl
           photo: listData ? listData.photo : ''
         };
       });
+
       return randomShowDatas;
     },
     categoryName() {
@@ -282,13 +283,17 @@ export default {
     // 获取初始化抽奖人列表
     async getInitList() {
       const res = await getPartInCompListApi();
+
+      res.records = res.records.concat(listall);
+
       this.$store.commit(
         'setConfig',
         Object.assign({}, this.config, {
           // number: res.total > 70 ? res.total : 70
-          number: res.total
+          number: res.records.length
         })
       );
+
       this.$store.commit('setList', formatList(res.records));
 
       this.$nextTick(() => {
@@ -503,13 +508,19 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1280px;
+  width: 100%;
   transform: translateX(-50%) translateY(-50%);
   text-align: center;
+
   .title {
-    color: red;
     font-size: 50px;
     line-height: 120px;
+    font-family: ShuHeiTi, 'Courier New', Courier, monospace;
+    background: linear-gradient(to bottom, #ffffff, #dbe4fe, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
   }
   .container {
     display: flex;
@@ -517,11 +528,12 @@ export default {
     flex-wrap: wrap;
   }
   .itemres {
-    background: #fff;
-    width: 260px;
+    // background: #fff;
+    background: linear-gradient(to bottom, #222324, #3a4986);
+    width: 18%;
     height: 260px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 2px solid #5c7bff;
     line-height: 80px;
     font-weight: bold;
     margin-right: 20px;
@@ -539,13 +551,16 @@ export default {
       flex-direction: column;
 
       .company-name {
-        color: #6275c1;
-        font-size: 32px;
+        // color: #6275c1;
+        color: #fff;
+        font-size: 20px;
+        line-height: 1.5;
+        padding: 0 20px;
       }
 
       .company-logo {
-        width: 150px;
-        height: 150px;
+        width: 285px;
+        height: 160px;
       }
     }
 

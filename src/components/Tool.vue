@@ -1,5 +1,13 @@
 <template>
   <div id="tool">
+    <!-- <el-select v-model="currentCategory">
+      <el-option
+        :label="item.label"
+        :value="item.value"
+        v-for="(item, index) in categorys"
+        :key="index"
+      ></el-option
+    ></el-select> -->
     <el-button @click="startHandler" type="primary" size="mini">{{
       running ? '停止' : '开始'
     }}</el-button>
@@ -16,7 +24,7 @@
       :append-to-body="true"
       :visible.sync="showSetwat"
       class="setwat-dialog"
-      width="400px"
+      width="350px"
     >
       <el-form ref="form" :model="form" label-width="80px" size="mini">
         <el-form-item label="抽取奖项">
@@ -41,21 +49,26 @@
             <span class="colorred">{{ remain }}</span>
             &nbsp;名
           </span>
-          <span :style="{ marginLeft: '20px' }">
+          <div></div>
+          <span>
             奖池剩余人数&nbsp;
             <span class="colorred">{{ poolRemaining }}</span>
             &nbsp;名
           </span>
         </el-form-item>
-
+        <!-- 
         <el-form-item label="抽取方式">
-          <el-select v-model="form.mode" placeholder="请选取本次抽取方式">
+          <el-select
+            v-model="form.mode"
+            placeholder="请选取本次抽取方式"
+            @change="changeMode"
+          >
             <el-option label="抽1人" :value="1"></el-option>
             <el-option label="抽5人" :value="5"></el-option>
             <el-option label="一次抽取完" :value="0"></el-option>
             <el-option label="自定义" :value="99"></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item label="抽取人数" v-if="form.mode === 99">
           <el-input
@@ -67,13 +80,13 @@
             :step="1"
           ></el-input>
         </el-form-item>
-
+        <!-- 
         <el-form-item label="全员参与">
           <el-switch v-model="form.allin"></el-switch>
           <span :style="{ fontSize: '12px' }">
             (开启后将在全体成员[无论有无中奖]中抽奖)
           </span>
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item>
           <el-button type="primary" @click="onSubmit">立即抽奖</el-button>
@@ -148,6 +161,32 @@ import Importphoto from './Importphoto';
 import { database, DB_STORE_NAME } from '@/helper/db';
 
 export default {
+  data() {
+    return {
+      // 记录各奖项抽奖次数
+      countMap: new Map(),
+      showSetwat: false,
+      showImport: false,
+      showImportphoto: false,
+      showRemoveoptions: false,
+      removeInfo: { type: 0 },
+      form: {
+        /**
+         * 抽奖类型
+         */
+        category: '',
+        /**
+         * 抽取方式 1人 5人 一次性抽完 自定义人数
+         */
+        mode: 0,
+        qty: 1,
+        allin: false
+      },
+      listStr: '',
+      // 当前选择奖项类型
+      currentCategory: 'fourthPrize'
+    };
+  },
   props: {
     running: Boolean,
     closeRes: Function
@@ -211,23 +250,11 @@ export default {
     }
   },
   components: { Importphoto },
-  data() {
-    return {
-      showSetwat: false,
-      showImport: false,
-      showImportphoto: false,
-      showRemoveoptions: false,
-      removeInfo: { type: 0 },
-      form: {
-        // 抽奖类型
-        category: '',
-        mode: 1,
-        qty: 1,
-        allin: false
-      },
-      listStr: ''
-    };
-  },
+  // data() {
+  //   return {
+
+  //   };
+  // },
   watch: {
     showRemoveoptions(v) {
       if (!v) {
@@ -321,14 +348,18 @@ export default {
       }
 
       this.showSetwat = false;
-      // this.$emit(
-      //   'toggle',
-      //   Object.assign({}, this.form, {
-      //     remain:
-      //       // 一次性抽完 但是奖池不足
-      //       this.poolRemaining < this.remain ? this.pollRemaning : this.remain
-      //   })
-      // );
+
+      // 记录抽奖次数
+      const { category } = this.form;
+
+      const countVal = this.countMap.get(category);
+      if (countVal) {
+        this.countMap.set(category, countVal + 1);
+      } else {
+        this.countMap.set(category, 1);
+      }
+
+      console.log(this.countMap, '记录抽奖次数');
 
       // 判断是否为一次性抽完且奖池剩余数量不足
       if (this.form.mode === 0 && this.poolRemaining < this.remain) {
@@ -385,6 +416,11 @@ export default {
       this.$nextTick(() => {
         this.$emit('resetConfig');
       });
+    },
+
+    changeMode(e) {
+      console.log(e);
+      this.form.qty = this.remain;
     }
   }
 };

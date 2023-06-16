@@ -46,6 +46,12 @@ export function conversionCategoryName(key) {
     case 'secondPrize':
       name = '二等奖';
       break;
+    case 'thirdPrize':
+      name = '三等奖';
+      break;
+    case 'fourthPrize':
+      name = '四等奖';
+      break;
     default:
       break;
   }
@@ -58,12 +64,16 @@ export function conversionCategoryName(key) {
 }
 
 export const formatList = list => {
-  return list.map((item, index) => {
+  const res = list.map((item, index) => {
     return {
       id: item.id,
       key: index + 1,
       name: item.compNameCn || item.compNameEn,
-      photo: item.compLogo
+      photo: item.compLogo || item.url,
+      compNameCn: item.compNameCn,
+      compNameEn: item.compNameEn
     };
   });
+  // console.log(res, 'format list...');
+  return res;
 };
