@@ -19,7 +19,8 @@
               color: '#f80'
             }"
           >
-            🧜 👺 🐢{{ item.name ? item.name : item.key }}🍉 😊 🌊
+            <!-- 🧜 👺 🐢{{ item.name ? item.name : item.key }}🍉 😊 🌊 -->
+            {{ item.name ? item.name : item.key }}
           </a>
         </li>
       </ul>
