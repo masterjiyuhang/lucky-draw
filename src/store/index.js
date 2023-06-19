@@ -15,17 +15,17 @@ export default new Vuex.Store({
     sessionId: '81',
     config: {
       name: '年会抽奖',
-      number: 0,
-      firstPrize: 1,
-      secondPrize: 3,
-      thirdPrize: 5,
-      fourthPrize: 10
+      number: 0
+      // firstPrize: 1,
+      // secondPrize: 3,
+      // thirdPrize: 5,
+      // fourthPrize: 10
     },
     result: {
-      firstPrize: [],
-      secondPrize: [],
-      thirdPrize: [],
-      fourthPrize: []
+      // firstPrize: [],
+      // secondPrize: [],
+      // thirdPrize: [],
+      // fourthPrize: []
     },
     newLottery: [],
     list: [],
@@ -35,11 +35,11 @@ export default new Vuex.Store({
     setClearConfig(state) {
       state.config = {
         name: '年会抽奖',
-        number: 0,
-        firstPrize: 1,
-        secondPrize: 3,
-        thirdPrize: 5,
-        fourthPrize: 10
+        number: 0
+        // firstPrize: 1,
+        // secondPrize: 3,
+        // thirdPrize: 5,
+        // fourthPrize: 10
       };
       state.newLottery = [];
     },
@@ -51,32 +51,33 @@ export default new Vuex.Store({
     },
     setClearResult(state) {
       state.result = {
-        firstPrize: [],
-        secondPrize: [],
-        thirdPrize: [],
-        fourthPrize: []
+        // firstPrize: [],
+        // secondPrize: [],
+        // thirdPrize: [],
+        // fourthPrize: []
       };
     },
     setClearStore(state) {
       state.config = {
         name: '年会抽奖',
-        number: 0,
-        firstPrize: 1,
-        secondPrize: 3,
-        thirdPrize: 5,
-        fourthPrize: 10
+        number: 0
+        // firstPrize: 1,
+        // secondPrize: 3,
+        // thirdPrize: 5,
+        // fourthPrize: 10
       };
       state.result = {
-        firstPrize: [],
-        secondPrize: [],
-        thirdPrize: [],
-        fourthPrize: []
+        // firstPrize: [],
+        // secondPrize: [],
+        // thirdPrize: [],
+        // fourthPrize: []
       };
       state.newLottery = [];
       state.list = [];
       state.photos = [];
     },
     setConfig(state, config) {
+      console.log('set config', state, config);
       state.config = config;
     },
     setResult(state, result = {}) {

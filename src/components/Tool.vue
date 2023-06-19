@@ -272,6 +272,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
+          this.form.category = '';
           switch (type) {
             case 0:
               clearData();

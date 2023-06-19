@@ -2,7 +2,10 @@ import axios from 'axios';
 import qs from 'qs';
 
 const http = axios.create({
-  baseURL: '/base-api',
+  baseURL:
+    process.env.NODE_ENV === 'production'
+      ? 'https://api-sit.jctrans.com/'
+      : '/base-api',
   timeout: 10000,
   headers: {
     Accept: 'application/json, text/plain, */*',

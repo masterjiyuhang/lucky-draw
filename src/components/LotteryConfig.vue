@@ -23,7 +23,7 @@
         <!-- <el-form-item label="抽奖标题">
           <el-input v-model="form.name"></el-input>
         </el-form-item> -->
-        <el-form-item label="抽奖总人数">
+        <!-- <el-form-item label="抽奖总人数">
           <el-input
             type="number"
             v-model="form.number"
@@ -62,7 +62,7 @@
             :min="0"
             :step="1"
           ></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item
           :label="newitem.name"
           v-for="newitem in storeNewLottery"
@@ -73,11 +73,7 @@
             :min="0"
             :step="1"
             v-model="form[newitem.key]"
-            @change="
-              val => {
-                form[newitem.key] = Number(val);
-              }
-            "
+            @change="val => onFormItemChange(val, newitem.key)"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -103,7 +99,7 @@
   </el-dialog>
 </template>
 <script>
-import { setData, configField } from '@/helper/index';
+import { setData, getData, configField, resultField } from '@/helper/index';
 import { randomNum } from '@/helper/algorithm';
 export default {
   name: 'LotteryConfig',
@@ -126,12 +122,46 @@ export default {
   },
   data() {
     return {
+      canChangeConfig: true,
       showAddLottery: false,
       newLottery: { name: '' }
     };
   },
   methods: {
+    onFormItemChange(val, key) {
+      val = Number(val);
+      const previousValue = getData(configField)[key];
+      const hasResult = getData(resultField)[key].length > 0;
+      const isInvalid = previousValue > val;
+
+      console.log(previousValue, val, hasResult);
+
+      if (hasResult && isInvalid) {
+        console.log('false ...');
+        this.canChangeConfig = false;
+        // this.form[key] = previousValue; // 将当前值恢复为上一次的值
+      } else {
+        console.log('true ....');
+        this.canChangeConfig = true;
+        this.form[key] = val;
+      }
+    },
     onSubmit() {
+      if (!this.canChangeConfig) {
+        this.$message.error('修改的数值不能小于上一次的值');
+        return;
+      }
+      // const previousConfig = getData(configField); // 保存上一次的配置
+      // // 检查是否有小于上一次的值的修改
+      // const isInvalid = Object.keys(this.form).some(key => {
+      //   return this.form[key] < previousConfig[key];
+      // });
+
+      // if (isInvalid) {
+      //   this.$message.error('修改的数值不能小于上一次的值');
+      //   return; // 停止保存配置
+      // }
+
       setData(configField, this.form);
       this.$store.commit('setConfig', this.form);
       this.$emit('update:visible', false);

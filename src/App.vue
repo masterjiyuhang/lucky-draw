@@ -2,7 +2,12 @@
   <div id="root">
     <header>
       <!-- <Publicity v-show="!running" /> -->
-      <el-button class="res" type="text" @click="showResult = true">
+      <el-button
+        :disabled="resultBtnDisabled"
+        class="res"
+        type="text"
+        @click="showResult = true"
+      >
         抽奖结果
       </el-button>
       <el-button class="con" type="text" @click="showConfig = true">
@@ -54,10 +59,13 @@
                   alt=""
                 />
                 <div class="company-name">
-                  {{ list.find(d => d.key === item).name }}
+                  {{ list.find(d => d.key === item).compNameCn }}
+                </div>
+                <div class="company-name">
+                  {{ list.find(d => d.key === item).compNameEn }}
                 </div>
               </template>
-              <span v-else> {{ item }} 没找着 </span>
+              <span v-else> {{ item }} 没找到 </span>
             </div>
             <img
               v-if="photos.find(d => d.id === item)"
@@ -134,7 +142,7 @@ import { luckydrawHandler } from '@/helper/algorithm';
 import Result from '@/components/Result';
 import { database, DB_STORE_NAME } from '@/helper/db';
 import { getPartInCompListApi, addRecordApi } from '@/api';
-import { listall } from '@/api/testData';
+// import { listall } from '@/api/testData';
 
 export default {
   name: 'App',
@@ -249,6 +257,8 @@ export default {
 
   data() {
     return {
+      // 抽奖结果按钮是否可以点击
+      resultBtnDisabled: false,
       running: false,
       showRes: false,
       showConfig: false,
@@ -283,9 +293,17 @@ export default {
   methods: {
     // 获取初始化抽奖人列表
     async getInitList() {
-      const res = await getPartInCompListApi();
+      const params = {
+        sessionId: 81 // 本次测试环境用81
+      };
+      if (localStorage.getItem('sessionId')) {
+        params.sessionId = localStorage.getItem('sessionId');
+      } else {
+        localStorage.setItem('sessionId', params.sessionId);
+      }
+      const res = await getPartInCompListApi(params);
 
-      res.records = res.records.concat(listall);
+      // res.records = res.records.concat(listall);
 
       this.$store.commit(
         'setConfig',
@@ -383,6 +401,7 @@ export default {
 
       if (this.running) {
         console.log('running is true');
+        this.resultBtnDisabled = false;
         // 停止摇奖动画
         this.audioSrc = bgaudio;
         this.loadAudio();
@@ -438,6 +457,8 @@ export default {
         this.result = data;
         window.TagCanvas.SetSpeed('rootcanvas', [5, 1]);
         this.running = !this.running;
+
+        this.resultBtnDisabled = true;
       }
     },
 
@@ -564,7 +585,7 @@ export default {
     // background: #fff;
     background: linear-gradient(to bottom, #222324, #3a4986);
     width: 18%;
-    height: 260px;
+    height: 280px;
     border-radius: 4px;
     border: 2px solid #5c7bff;
     line-height: 80px;
@@ -589,6 +610,11 @@ export default {
         font-size: 20px;
         line-height: 1.5;
         padding: 0 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .company-logo {
