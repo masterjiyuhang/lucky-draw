@@ -68,7 +68,7 @@ export const formatList = list => {
     return {
       id: item.id,
       key: index + 1,
-      name: item.compNameCn || item.compNameEn,
+      name: item.compNameEn || item.compNameCn,
       photo: item.compLogo || item.url,
       compNameCn: item.compNameCn,
       compNameEn: item.compNameEn
