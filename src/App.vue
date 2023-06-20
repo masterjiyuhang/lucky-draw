@@ -580,6 +580,8 @@ export default {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    max-height: 90vh;
+    overflow-y: auto;
   }
   .itemres {
     // background: #fff;

@@ -146,7 +146,7 @@ export default {
     text-fill-color: transparent;
   }
   .el-dialog__body {
-    // max-height: 500px;
+    max-height: 80vh;
     overflow-y: auto;
   }
   .listrow {
