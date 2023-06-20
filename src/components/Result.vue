@@ -8,7 +8,7 @@
   >
     <div class="dialog-title" slot="title">
       <span :style="{ fontSize: '32px' }">
-        抽奖结果
+        Lucky Draw
       </span>
       <span>
         <!-- {{ resultList }} -->

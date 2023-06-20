@@ -9,10 +9,10 @@
       ></el-option
     ></el-select> -->
     <el-button @click="startHandler" type="primary" size="mini">{{
-      running ? '停止' : '开始'
+      running ? 'Stop' : 'Start'
     }}</el-button>
     <el-button size="mini" @click="showRemoveoptions = true">
-      重置
+      Reset
     </el-button>
     <!-- <el-button size="mini" @click="showImport = true">
       导入名单

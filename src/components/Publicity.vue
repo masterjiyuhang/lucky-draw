@@ -52,7 +52,7 @@ export default {
           }, []);
           message.push({
             key: index + 1,
-            title: `${label}抽奖结果:`,
+            title: `${label}:`,
             value: `${
               result[item].length > 0 ? nameList.join('、') : '暂未抽取'
             }`

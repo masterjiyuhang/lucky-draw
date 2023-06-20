@@ -8,10 +8,10 @@
         type="text"
         @click="showResult = true"
       >
-        抽奖结果
+        Lucky Draw Results
       </el-button>
       <el-button class="con" type="text" @click="showConfig = true">
-        抽奖配置
+        Lucky Draw Config
       </el-button>
     </header>
     <div id="main" :class="{ mask: showRes }"></div>
@@ -32,9 +32,7 @@
     </div>
     <transition name="bounce">
       <div id="resbox" v-show="showRes">
-        <div class="title" @click="showRes = false">
-          {{ categoryName }}抽奖结果：
-        </div>
+        <div class="title" @click="showRes = false">{{ categoryName }}：</div>
         <div class="container">
           <div
             v-for="item in resArr"
@@ -520,7 +518,7 @@ export default {
         right: 20px;
       }
       &.res {
-        right: 100px;
+        right: 180px;
       }
     }
   }
@@ -612,11 +610,13 @@ export default {
         font-size: 20px;
         line-height: 1.5;
         padding: 0 20px;
-        display: -webkit-box;
+        // display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 350px;
       }
 
       .company-logo {
