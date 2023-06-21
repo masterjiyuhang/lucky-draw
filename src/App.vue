@@ -141,7 +141,7 @@ import { luckydrawHandler } from '@/helper/algorithm';
 import Result from '@/components/Result';
 import { database, DB_STORE_NAME } from '@/helper/db';
 import { getPartInCompListApi, addRecordApi } from '@/api';
-import { listall } from '@/api/testData';
+// import { listall } from '@/api/testData';
 
 export default {
   name: 'App',
@@ -302,7 +302,7 @@ export default {
       }
       const res = await getPartInCompListApi(params);
 
-      res.records = res.records.concat(listall);
+      // res.records = res.records.concat(listall);
 
       this.$store.commit(
         'setConfig',

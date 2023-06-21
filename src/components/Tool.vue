@@ -28,7 +28,7 @@
     >
       <el-form ref="form" :model="form" label-width="95px" size="mini">
         <el-form-item label="Lucky Draw">
-          <el-select v-model="form.category" placeholder="请选取本次抽取的奖项">
+          <el-select v-model="form.category" placeholder="">
             <el-option
               :label="item.label"
               :value="item.value"
@@ -456,6 +456,14 @@ export default {
     box-shadow: -10px -10px 20px rgba(0, 0, 0, 0.2),
       10px 10px 20px hsla(0, 0%, 100%, 0.1);
     color: hsla(0, 0%, 100%, 0.8);
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    transform: translate(0%, 150%);
+    -ms-transform: translate(0%, 150%);
+    -webkit-transform: translate(0%, 150%);
+    height: 200px;
+    margin: 0;
     // background-image: linear-gradient(
     //   to top left,
     //   rgba(90, 149, 207, 0.7),
@@ -493,67 +501,67 @@ export default {
     font-weight: bold;
   }
   $buttonColor: #35a2fd;
-  .shake-btn {
-    // width: 160px;
-    // height: 48px;
-    border: 0;
-    border-radius: 6px;
-    background: $buttonColor;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0px 10px 20px -10px $buttonColor;
-    animation: 0.2s ease 0s 1 normal none running show,
-      1.2s ease 1s infinite normal none running shake;
+  // .shake-btn {
+  //   // width: 160px;
+  //   // height: 48px;
+  //   border: 0;
+  //   border-radius: 6px;
+  //   background: $buttonColor;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   color: #ffffff;
+  //   font-size: 24px;
+  //   cursor: pointer;
+  //   box-shadow: 0px 10px 20px -10px $buttonColor;
+  //   animation: 0.2s ease 0s 1 normal none running show,
+  //     1.2s ease 1s infinite normal none running shake;
 
-    &:hover {
-      transform: scale(1.1);
-    }
+  //   &:hover {
+  //     transform: scale(1.1);
+  //   }
 
-    @keyframes show {
-      0% {
-        transform: scale(0);
-        opacity: 0;
-      }
-      80% {
-        transform: scale(1.05);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
+  //   @keyframes show {
+  //     0% {
+  //       transform: scale(0);
+  //       opacity: 0;
+  //     }
+  //     80% {
+  //       transform: scale(1.05);
+  //       opacity: 1;
+  //     }
+  //     100% {
+  //       transform: scale(1);
+  //     }
+  //   }
 
-    @keyframes shake {
-      0% {
-        transform: translate3d(0px, 0px, 0px);
-      }
-      10% {
-        transform: translate3d(-3%, 0px, 0px) rotate3d(0, 0, 1, -5deg);
-      }
-      20% {
-        transform: translate3d(2%, 0px, 0px) rotate3d(0, 0, 1, 3deg);
-      }
-      30% {
-        transform: translate3d(-1%, 0px, 0px) rotate3d(0, 0, 1, -3deg);
-      }
-      40% {
-        transform: translate3d(1%, 0px, 0px) rotate3d(0, 0, 1, 2deg);
-      }
-      50% {
-        transform: translate3d(-1%, 0px, 0px) rotate3d(0, 0, 1, -1deg);
-      }
-      60% {
-        transform: translate3d(0px, 0px, 0px);
-      }
-      100% {
-        transform: translate3d(0px, 0px, 0px);
-      }
-    }
-  }
+  //   @keyframes shake {
+  //     0% {
+  //       transform: translate3d(0px, 0px, 0px);
+  //     }
+  //     10% {
+  //       transform: translate3d(-3%, 0px, 0px) rotate3d(0, 0, 1, -5deg);
+  //     }
+  //     20% {
+  //       transform: translate3d(2%, 0px, 0px) rotate3d(0, 0, 1, 3deg);
+  //     }
+  //     30% {
+  //       transform: translate3d(-1%, 0px, 0px) rotate3d(0, 0, 1, -3deg);
+  //     }
+  //     40% {
+  //       transform: translate3d(1%, 0px, 0px) rotate3d(0, 0, 1, 2deg);
+  //     }
+  //     50% {
+  //       transform: translate3d(-1%, 0px, 0px) rotate3d(0, 0, 1, -1deg);
+  //     }
+  //     60% {
+  //       transform: translate3d(0px, 0px, 0px);
+  //     }
+  //     100% {
+  //       transform: translate3d(0px, 0px, 0px);
+  //     }
+  //   }
+  // }
 }
 .import-dialog {
   .footer {
