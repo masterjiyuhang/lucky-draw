@@ -26,8 +26,8 @@
       class="setwat-dialog"
       width="350px"
     >
-      <el-form ref="form" :model="form" label-width="80px" size="mini">
-        <el-form-item label="抽取奖项">
+      <el-form ref="form" :model="form" label-width="95px" size="mini">
+        <el-form-item label="Lucky Draw">
           <el-select v-model="form.category" placeholder="请选取本次抽取的奖项">
             <el-option
               :label="item.label"
@@ -40,20 +40,20 @@
 
         <el-form-item label=" " v-if="form.category">
           <span>
-            共&nbsp;
+            Total&nbsp;
             <span class="colorred">{{ config[form.category] }}</span>
-            &nbsp;名
+            &nbsp;
           </span>
           <span :style="{ marginLeft: '20px' }">
-            剩余&nbsp;
+            Remaining&nbsp;
             <span class="colorred">{{ remain }}</span>
-            &nbsp;名
+            &nbsp;
           </span>
           <div></div>
           <span>
-            奖池剩余人数&nbsp;
+            Prize pool remaining&nbsp;
             <span class="colorred">{{ poolRemaining }}</span>
-            &nbsp;名
+            &nbsp;
           </span>
         </el-form-item>
         <!-- 
@@ -89,8 +89,10 @@
         </el-form-item> -->
 
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即抽奖</el-button>
-          <el-button @click="showSetwat = false">取消</el-button>
+          <el-button class="shake-btn" type="primary" @click="onSubmit"
+            >Start</el-button
+          >
+          <el-button @click="showSetwat = false">Cancel</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -446,9 +448,111 @@ export default {
   }
 }
 .setwat-dialog {
+  .el-dialog {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.4);
+    border-radius: 20px;
+    border-right: 1px solid hsla(0, 0%, 100%, 0.4);
+    bottom: 0;
+    box-shadow: -10px -10px 20px rgba(0, 0, 0, 0.2),
+      10px 10px 20px hsla(0, 0%, 100%, 0.1);
+    color: hsla(0, 0%, 100%, 0.8);
+    // background-image: linear-gradient(
+    //   to top left,
+    //   rgba(90, 149, 207, 0.7),
+    //   rgba(58, 76, 99, 0.9)
+    // );
+    // height: 400px;
+    // overflow: hidden;
+    // text-align: center;
+    // -webkit-transform: rotate(0deg);
+    // transform: rotate(0deg);
+    // width: 260px;
+    z-index: 10;
+  }
+
+  // .el-dialog::after {
+  //   background-image: linear-gradient(
+  //     to top left,
+  //     rgba(90, 149, 207, 0.7),
+  //     rgba(58, 76, 99, 0.9)
+  //   );
+  //   border-radius: 20px;
+  //   bottom: 0;
+  //   content: '';
+  //   -webkit-filter: blur(10px);
+  //   filter: blur(10px);
+  //   left: 0;
+  //   margin: -20px;
+  //   position: absolute;
+  //   right: 0;
+  //   top: 0;
+  //   z-index: -1;
+  // }
   .colorred {
     color: red;
     font-weight: bold;
+  }
+  $buttonColor: #35a2fd;
+  .shake-btn {
+    // width: 160px;
+    // height: 48px;
+    border: 0;
+    border-radius: 6px;
+    background: $buttonColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0px 10px 20px -10px $buttonColor;
+    animation: 0.2s ease 0s 1 normal none running show,
+      1.2s ease 1s infinite normal none running shake;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes show {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      80% {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translate3d(0px, 0px, 0px);
+      }
+      10% {
+        transform: translate3d(-3%, 0px, 0px) rotate3d(0, 0, 1, -5deg);
+      }
+      20% {
+        transform: translate3d(2%, 0px, 0px) rotate3d(0, 0, 1, 3deg);
+      }
+      30% {
+        transform: translate3d(-1%, 0px, 0px) rotate3d(0, 0, 1, -3deg);
+      }
+      40% {
+        transform: translate3d(1%, 0px, 0px) rotate3d(0, 0, 1, 2deg);
+      }
+      50% {
+        transform: translate3d(-1%, 0px, 0px) rotate3d(0, 0, 1, -1deg);
+      }
+      60% {
+        transform: translate3d(0px, 0px, 0px);
+      }
+      100% {
+        transform: translate3d(0px, 0px, 0px);
+      }
+    }
   }
 }
 .import-dialog {

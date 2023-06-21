@@ -26,6 +26,7 @@
           >
             <!-- 🧜 👺 🐢{{ item.name ? item.name : item.key }}🍉 😊 🌊 -->
             {{ item.name ? item.name : item.key }}
+            <img v-if="item.photo" :src="item.photo" :width="50" :height="50" />
           </a>
         </li>
       </ul>
@@ -140,7 +141,7 @@ import { luckydrawHandler } from '@/helper/algorithm';
 import Result from '@/components/Result';
 import { database, DB_STORE_NAME } from '@/helper/db';
 import { getPartInCompListApi, addRecordApi } from '@/api';
-// import { listall } from '@/api/testData';
+import { listall } from '@/api/testData';
 
 export default {
   name: 'App',
@@ -301,7 +302,7 @@ export default {
       }
       const res = await getPartInCompListApi(params);
 
-      // res.records = res.records.concat(listall);
+      res.records = res.records.concat(listall);
 
       this.$store.commit(
         'setConfig',
@@ -453,7 +454,7 @@ export default {
 
         // console.log(data, 'data...');
         this.result = data;
-        window.TagCanvas.SetSpeed('rootcanvas', [5, 1]);
+        window.TagCanvas.SetSpeed('rootcanvas', [1.2, 1]);
         this.running = !this.running;
 
         this.resultBtnDisabled = true;

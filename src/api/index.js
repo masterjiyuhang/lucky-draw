@@ -4,7 +4,7 @@ import qs from 'qs';
 const http = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://api-sit.jctrans.com/'
+      ? 'https://cloudapi.jctrans.com/'
       : '/base-api',
   timeout: 10000,
   headers: {
@@ -32,7 +32,7 @@ http.interceptors.response.use(
 // /evt/fr/winRecord/partInCompList
 export const getPartInCompListApi = (
   params = {
-    sessionId: 81
+    sessionId: 27
   }
 ) => {
   return http.post('/evt/fr/winRecord/partInCompList', params);

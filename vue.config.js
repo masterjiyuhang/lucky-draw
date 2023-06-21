@@ -6,6 +6,7 @@ module.exports = {
   devServer: {
     proxy: {
       '^/base-api/': {
+        // target: 'https://cloudapi.jctrans.com/',
         target: 'https://api-dev2.jctrans.com/',
         changeOrigin: true,
         pathRewrite: {
@@ -22,7 +23,7 @@ module.exports = {
       .loader('url-loader')
       .tap(options => {
         options.fallback.options.name = '[name].[ext]';
-        options.limit = 100;
+        options.limit = 10000000;
         return options;
       });
 
@@ -32,7 +33,7 @@ module.exports = {
       .loader('url-loader')
       .tap(options => {
         options.fallback.options.name = '[name].[ext]';
-        options.limit = 100;
+        options.limit = 100000000;
         return options;
       });
   },
