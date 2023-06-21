@@ -22,7 +22,7 @@ module.exports = {
       .loader('url-loader')
       .tap(options => {
         options.fallback.options.name = '[name].[ext]';
-        options.limit = 100000;
+        options.limit = 100;
         return options;
       });
 
@@ -32,7 +32,7 @@ module.exports = {
       .loader('url-loader')
       .tap(options => {
         options.fallback.options.name = '[name].[ext]';
-        options.limit = 10000000;
+        options.limit = 100;
         return options;
       });
   },
