@@ -293,7 +293,7 @@ export default {
     // 获取初始化抽奖人列表
     async getInitList() {
       const params = {
-        sessionId: 81 // 本次测试环境用81
+        sessionId: 27 // 本次测试环境用81
       };
       if (localStorage.getItem('sessionId')) {
         params.sessionId = localStorage.getItem('sessionId');

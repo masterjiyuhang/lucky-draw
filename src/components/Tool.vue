@@ -25,6 +25,7 @@
       :visible.sync="showSetwat"
       class="setwat-dialog"
       width="350px"
+      :close-on-click-modal="false"
     >
       <el-form ref="form" :model="form" label-width="95px" size="mini">
         <el-form-item label="Lucky Draw">
@@ -127,6 +128,7 @@
 
     <el-dialog
       :visible.sync="showRemoveoptions"
+      :close-on-click-modal="false"
       width="300px"
       class="c-removeoptions"
       :append-to-body="true"
@@ -458,22 +460,10 @@ export default {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    transform: translate(0%, 150%);
-    -ms-transform: translate(0%, 150%);
-    -webkit-transform: translate(0%, 150%);
+    transform: none;
+    top: unset;
     height: 200px;
     margin: 0;
-    // background-image: linear-gradient(
-    //   to top left,
-    //   rgba(90, 149, 207, 0.7),
-    //   rgba(58, 76, 99, 0.9)
-    // );
-    // height: 400px;
-    // overflow: hidden;
-    // text-align: center;
-    // -webkit-transform: rotate(0deg);
-    // transform: rotate(0deg);
-    // width: 260px;
     z-index: 10;
   }
 
@@ -581,9 +571,8 @@ export default {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    transform: translate(0%, 150%);
-    -ms-transform: translate(0%, 150%);
-    -webkit-transform: translate(0%, 150%);
+    top: unset;
+    transform: none;
     height: 240px;
     margin: 0;
   }

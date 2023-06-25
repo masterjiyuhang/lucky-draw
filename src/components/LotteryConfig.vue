@@ -2,12 +2,13 @@
   <el-dialog
     :visible="visible"
     :append-to-body="true"
+    :close-on-click-modal="false"
     width="390px"
     @close="$emit('update:visible', false)"
     class="c-LotteryConfig"
   >
     <div class="c-LotteryConfigtitle" slot="title">
-      <span :style="{ fontSize: '16px', marginRight: '20px' }">
+      <span :style="{ color: '#333', fontSize: '16px', marginRight: '20px' }">
         抽奖配置
       </span>
       <el-button size="mini" @click="addLottery">增加奖项</el-button>
@@ -208,12 +209,11 @@ export default {
     box-shadow: -10px -10px 20px rgba(0, 0, 0, 0.2),
       10px 10px 20px hsla(0, 0%, 100%, 0.1);
     color: hsla(0, 0%, 100%, 0.8);
+    top: unset;
+    transform: none;
     position: fixed;
     right: 30px;
     bottom: 20px;
-    transform: translate(0%, 150%);
-    -ms-transform: translate(0%, 150%);
-    -webkit-transform: translate(0%, 150%);
     height: 200px;
     margin: 0;
   }

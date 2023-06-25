@@ -12,7 +12,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // 届次ID
-    sessionId: '81',
+    sessionId: '27',
     config: {
       name: '年会抽奖',
       number: 0
