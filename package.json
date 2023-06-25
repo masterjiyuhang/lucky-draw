@@ -34,5 +34,9 @@
     "prettier": "^1.19.1",
     "sass-loader": "^10.1.1",
     "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=12.13.0 <=12.19.1",
+    "npm": ">=6.9.0"
   }
 }

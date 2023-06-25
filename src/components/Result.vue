@@ -179,8 +179,8 @@ export default {
       // overflow: hidden;
       // text-overflow: ellipsis;
       // white-space: nowrap;
-      width: 285px;
-      height: 160px;
+      width: 374px;
+      height: 210px;
       padding: 15px;
       line-height: 30px;
       text-align: center;
@@ -190,8 +190,8 @@ export default {
       border: 2px solid #5c7bff;
       // background-color: #f2f2f2;
       background: linear-gradient(to bottom, #222324, #3a4986);
-      margin-left: 5px;
-      margin-bottom: 5px;
+      margin-left: 25px;
+      margin-bottom: 15px;
       position: relative;
       cursor: pointer;
       color: #fff;

@@ -434,7 +434,7 @@ export default {
 #tool {
   position: fixed;
   width: 60px;
-  top: 50%;
+  top: 80%;
   right: 20px;
   transform: translateY(-50%);
   text-align: center;
