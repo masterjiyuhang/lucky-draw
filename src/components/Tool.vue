@@ -452,7 +452,6 @@ export default {
     border-bottom: 1px solid hsla(0, 0%, 100%, 0.4);
     border-radius: 20px;
     border-right: 1px solid hsla(0, 0%, 100%, 0.4);
-    bottom: 0;
     box-shadow: -10px -10px 20px rgba(0, 0, 0, 0.2),
       10px 10px 20px hsla(0, 0%, 100%, 0.1);
     color: hsla(0, 0%, 100%, 0.8);
@@ -573,6 +572,20 @@ export default {
 .c-removeoptions {
   .el-dialog {
     // height: 290px;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.4);
+    border-radius: 20px;
+    border-right: 1px solid hsla(0, 0%, 100%, 0.4);
+    box-shadow: -10px -10px 20px rgba(0, 0, 0, 0.2),
+      10px 10px 20px hsla(0, 0%, 100%, 0.1);
+    color: hsla(0, 0%, 100%, 0.8);
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    transform: translate(0%, 150%);
+    -ms-transform: translate(0%, 150%);
+    -webkit-transform: translate(0%, 150%);
+    height: 240px;
+    margin: 0;
   }
   .el-radio.is-bordered + .el-radio.is-bordered {
     margin-left: 0px;

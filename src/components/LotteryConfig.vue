@@ -201,12 +201,28 @@ export default {
 </script>
 <style lang="scss">
 .c-LotteryConfig {
+  .el-dialog {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.4);
+    border-radius: 20px;
+    border-right: 1px solid hsla(0, 0%, 100%, 0.4);
+    box-shadow: -10px -10px 20px rgba(0, 0, 0, 0.2),
+      10px 10px 20px hsla(0, 0%, 100%, 0.1);
+    color: hsla(0, 0%, 100%, 0.8);
+    position: fixed;
+    right: 30px;
+    bottom: 20px;
+    transform: translate(0%, 150%);
+    -ms-transform: translate(0%, 150%);
+    -webkit-transform: translate(0%, 150%);
+    height: 200px;
+    margin: 0;
+  }
   .el-dialog__body {
     height: 340px;
     .container {
-      height: 100%;
       overflow-y: auto;
       padding: 0 10px;
+      height: 100px;
     }
   }
 }
